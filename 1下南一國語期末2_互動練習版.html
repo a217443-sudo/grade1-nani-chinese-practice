@@ -101,6 +101,16 @@
       font-size: 10.5pt;
       cursor: pointer;
     }
+    .generate-action {
+      width: 100%;
+      border: 1.5px solid #155eef;
+      background: #155eef;
+      color: #fff;
+      padding: 3mm;
+      margin-bottom: 5mm;
+      font-size: 11.5pt;
+      cursor: pointer;
+    }
     .practice-title {
       display: flex;
       justify-content: space-between;
@@ -236,6 +246,7 @@
           <button id="selectAllLessons" type="button">全選</button>
           <button id="clearLessons" type="button">清除</button>
         </div>
+        <button class="generate-action" id="generateNewSet" type="button">再出一份題目</button>
         <h2>選擇練習類型</h2>
         <button class="btn active" data-type="correct">圈出正確的字 <span>20 題</span></button>
         <button class="btn" data-type="choice">選出正確答案 <span>20 題</span></button>
@@ -513,8 +524,179 @@
       }
     ];
 
+    const generatedData = {
+      correct: {
+        title: "圈出正確的字",
+        hint: "第二份題目：練習不同的形近字、同音字與課文高頻生字。",
+        items: [
+          ["畫畫", "我用紅色的筆畫出一朵（花／化）。"],
+          ["畫畫", "這張圖畫讓我想到美麗的（景／影）色。"],
+          ["畫畫", "我把心裡的感（謝／射）畫在卡片上。"],
+          ["給松鼠的卡片", "松鼠跳到樹（上／尚）找果子。"],
+          ["給松鼠的卡片", "卡片上寫著祝（福／幅）的話。"],
+          ["給松鼠的卡片", "小松鼠住在樹（洞／同）裡。"],
+          ["張奶奶的寶貝", "張奶奶在校（園／圓）裡幫忙。"],
+          ["張奶奶的寶貝", "謝謝（您／泥）每天照顧我們。"],
+          ["張奶奶的寶貝", "相簿裡有珍貴的照（片／遍）。"],
+          ["井裡的小青蛙", "井外的天空又高又（大／太）。"],
+          ["井裡的小青蛙", "小青蛙跳到外（面／麵）看看。"],
+          ["井裡的小青蛙", "牠看見遠方有一（座／坐）山。"],
+          ["吃星星的小鴨子", "池塘裡有天空的倒（影／景）。"],
+          ["吃星星的小鴨子", "小鴨子伸長脖子想（啄／家）星星。"],
+          ["吃星星的小鴨子", "水面出現一圈一圈的波（紋／文）。"],
+          ["快樂不止一半", "大家分（享／亨）地瓜。"],
+          ["快樂不止一半", "今年的地瓜收（成／誠）很好。"],
+          ["快樂不止一半", "朋友一起幫他加（油／由）。"]
+        ]
+      },
+      choice: {
+        title: "選出正確答案",
+        hint: "第二份題目：練習不同的課文理解與語詞判斷。",
+        items: [
+          ["畫畫", "畫畫除了好看，還可以做什麼？ A. 表達心意 B. 讓人迷路 C. 把水變甜"],
+          ["畫畫", "稱讚別人的畫時，哪一句最好？ A. 你的畫很用心 B. 你不要畫 C. 我不看"],
+          ["給松鼠的卡片", "祝福卡片最適合寫哪一句？ A. 祝你平安快樂 B. 我不喜歡你 C. 快點走開"],
+          ["給松鼠的卡片", "看到小動物躲起來，最好怎麼做？ A. 安靜離開 B. 大聲追牠 C. 拿石頭丟牠"],
+          ["張奶奶的寶貝", "張奶奶珍惜照片，是因為照片可能保存什麼？ A. 回憶 B. 雨水 C. 鉛筆"],
+          ["張奶奶的寶貝", "別人幫忙時，我們應該怎麼做？ A. 說謝謝 B. 裝作沒看到 C. 生氣"],
+          ["井裡的小青蛙", "小青蛙到井外後，最可能發現什麼？ A. 世界比牠想的大 B. 天空變小 C. 花不見了"],
+          ["井裡的小青蛙", "「看得太少」表示什麼？ A. 見識不夠多 B. 眼睛閉著 C. 沒有睡覺"],
+          ["吃星星的小鴨子", "水面像鏡子時，會出現什麼？ A. 倒影 B. 地瓜 C. 卡片"],
+          ["吃星星的小鴨子", "小鴨子發現自己誤會後，學到什麼？ A. 看到的事要想一想 B. 不能游泳 C. 星星可以吃"],
+          ["快樂不止一半", "分享東西後，可能得到什麼？ A. 更多快樂 B. 更多生氣 C. 更多孤單"],
+          ["快樂不止一半", "「加油」通常用來做什麼？ A. 鼓勵別人 B. 責備別人 C. 藏東西"]
+        ]
+      },
+      fill: {
+        title: "填詞選空",
+        hint: "第二份題目：把不同的課文語詞放進句子中。",
+        items: [
+          ["畫畫", "詞語：圖畫。這張<span class='line'></span>畫得很用心。"],
+          ["畫畫", "詞語：感謝。我想用卡片表達<span class='line'></span>。"],
+          ["給松鼠的卡片", "詞語：祝福。卡片上寫著<span class='line'></span>的話。"],
+          ["給松鼠的卡片", "詞語：樹洞。小松鼠躲進<span class='line'></span>裡。"],
+          ["張奶奶的寶貝", "詞語：校園。張奶奶常在<span class='line'></span>裡幫忙。"],
+          ["張奶奶的寶貝", "詞語：相簿。奶奶的<span class='line'></span>裡有好多照片。"],
+          ["井裡的小青蛙", "詞語：井口。小青蛙從<span class='line'></span>看天空。"],
+          ["井裡的小青蛙", "詞語：遠方。牠看見<span class='line'></span>有高高的山。"],
+          ["吃星星的小鴨子", "詞語：倒影。水裡的星星其實是天空的<span class='line'></span>。"],
+          ["吃星星的小鴨子", "詞語：波紋。水面出現一圈一圈的<span class='line'></span>。"],
+          ["快樂不止一半", "詞語：地瓜。大家一起吃甜甜的<span class='line'></span>。"],
+          ["快樂不止一半", "詞語：鼓勵。同學的加油是一種<span class='line'></span>。"]
+        ]
+      },
+      reorder: {
+        title: "重組句子",
+        hint: "第二份題目：重新排列不同句子。",
+        items: [
+          ["畫畫", "我／畫下／美麗的花／用彩色筆<span class='longline'></span>"],
+          ["畫畫", "圖畫／貼在／我／書桌前<span class='longline'></span>"],
+          ["給松鼠的卡片", "祝福／卡片／寫在／我／上<span class='longline'></span>"],
+          ["給松鼠的卡片", "樹洞裡／小松鼠／躲進<span class='longline'></span>"],
+          ["張奶奶的寶貝", "相簿／張奶奶／拿出／一本<span class='longline'></span>"],
+          ["張奶奶的寶貝", "我們／張奶奶／謝謝／對／說<span class='longline'></span>"],
+          ["井裡的小青蛙", "世界／原來／很大／外面的<span class='longline'></span>"],
+          ["井裡的小青蛙", "小青蛙／井外／跳到<span class='longline'></span>"],
+          ["吃星星的小鴨子", "倒影／星星／是／水裡的<span class='longline'></span>"],
+          ["吃星星的小鴨子", "波紋／水面／出現／一圈一圈的<span class='longline'></span>"],
+          ["快樂不止一半", "地瓜／分給／鄰居／阿哲<span class='longline'></span>"],
+          ["快樂不止一半", "分享／快樂／讓／變更多<span class='longline'></span>"]
+        ]
+      },
+      sentence: {
+        title: "照樣造句",
+        hint: "第二份題目：看句型與例句，再自己造一句。",
+        className: "sentence-card",
+        items: [
+          ["句型", "句型：不但……也……<div class='example'>例句：這張圖不但漂亮，也很有意思。</div>請你造句：<span class='longline'></span>", "畫畫"],
+          ["句型", "句型：把……放在……<div class='example'>例句：我把卡片放在樹下。</div>請你造句：<span class='longline'></span>", "給松鼠的卡片"],
+          ["句型", "句型：每次……就……<div class='example'>例句：每次看見照片，奶奶就想起以前的事。</div>請你造句：<span class='longline'></span>", "張奶奶的寶貝"],
+          ["句型", "句型：原來不是……是……<div class='example'>例句：原來不是天空太小，是我看得太少。</div>請你造句：<span class='longline'></span>", "井裡的小青蛙"],
+          ["句型", "句型：一……就……<div class='example'>例句：水面一動，星星就散開了。</div>請你造句：<span class='longline'></span>", "吃星星的小鴨子"],
+          ["句型", "句型：雖然……但是……<div class='example'>例句：雖然地瓜少了一半，但是快樂變多了。</div>請你造句：<span class='longline'></span>", "快樂不止一半"]
+        ]
+      },
+      wrongword: {
+        title: "改錯字",
+        hint: "第二份題目：找出錯字並寫正確。",
+        items: [
+          ["畫畫", "我用彩色筆畫了一多花。錯字：<span class='line'></span>"],
+          ["畫畫", "這張圖畫很用新。錯字：<span class='line'></span>"],
+          ["給松鼠的卡片", "卡片上寫著祝幅。錯字：<span class='line'></span>"],
+          ["給松鼠的卡片", "小松鼠躲進樹同。錯字：<span class='line'></span>"],
+          ["張奶奶的寶貝", "相簿裡有很多照遍。錯字：<span class='line'></span>"],
+          ["張奶奶的寶貝", "謝謝泥照顧我們。錯字：<span class='line'></span>"],
+          ["井裡的小青蛙", "小青蛙跳到井歪。錯字：<span class='line'></span>"],
+          ["井裡的小青蛙", "外面的世介很大。錯字：<span class='line'></span>"],
+          ["吃星星的小鴨子", "水面有星星的倒景。錯字：<span class='line'></span>"],
+          ["吃星星的小鴨子", "小鴨子覺得很其妙。錯字：<span class='line'></span>"],
+          ["快樂不止一半", "分享讓快樂變哆。錯字：<span class='line'></span>"],
+          ["快樂不止一半", "大家一起吃甜甜的地瓜。錯字：<span class='line'></span>"]
+        ]
+      },
+      punctuation: {
+        title: "標點符號",
+        hint: "第二份題目：讀句意，自己判斷標點。",
+        items: [
+          ["", "這張圖畫是誰畫的<span class='line'></span>", "畫畫"],
+          ["", "我想把祝福寫在卡片上<span class='line'></span>", "給松鼠的卡片"],
+          ["", "張奶奶說 這些照片都是我的寶貝<span class='longline'></span>", "張奶奶的寶貝"],
+          ["", "小青蛙終於看見外面的世界<span class='line'></span>", "井裡的小青蛙"],
+          ["", "水裡的星星為什麼不見了<span class='line'></span>", "吃星星的小鴨子"],
+          ["", "因為大家一起分享所以快樂變多了<span class='longline'></span>", "快樂不止一半"]
+        ]
+      },
+      classifier: {
+        title: "量詞練習",
+        hint: "第二份題目：請從這些量詞中選一個填入：（張、幅、隻、顆、本、棵、朵、個、座、條、片、道、雙、群）。",
+        items: [
+          ["", "一（　）彩色筆<span class='line'></span>", "畫畫"],
+          ["", "一（　）祝福卡<span class='line'></span>", "給松鼠的卡片"],
+          ["", "一（　）樹洞<span class='line'></span>", "給松鼠的卡片"],
+          ["", "一（　）手帕<span class='line'></span>", "張奶奶的寶貝"],
+          ["", "一（　）天空<span class='line'></span>", "井裡的小青蛙"],
+          ["", "一（　）波紋<span class='line'></span>", "吃星星的小鴨子"],
+          ["", "一（　）地瓜餅<span class='line'></span>", "快樂不止一半"]
+        ]
+      }
+    };
+
+    const generatedReadings = [
+      {
+        title: "新閱讀一：一張沒有名字的畫",
+        lessons: ["畫畫", "給松鼠的卡片"],
+        text: "小可在美勞課畫了一張森林圖，圖裡有大樹、果子和一隻小松鼠。她本來想把名字寫得大大的，可是想到這張圖是要送給公園裡的小松鼠，就改寫了一句：「希望你每天都有安全的地方休息。」放學後，小可把圖做成卡片，和爸爸一起放在樹下。爸爸說：「你沒有看到小松鼠收到卡片，可是你的心意已經在卡片裡了。」小可聽了，覺得很安心。",
+        questions: ["小可畫的森林圖裡有什麼？ A. 大樹、果子和小松鼠 B. 火車和車票 C. 雨傘和鞋子", "小可把圖做成什麼？ A. 卡片 B. 書包 C. 帽子", "爸爸說心意在哪裡？ A. 卡片裡 B. 鞋子裡 C. 水杯裡", "照樣寫句子：你的心意已經在卡片裡了。<span class='longline'></span>"]
+      },
+      {
+        title: "新閱讀二：最亮的寶貝",
+        lessons: ["張奶奶的寶貝"],
+        text: "張奶奶的櫃子裡沒有新玩具，也沒有閃亮的項鍊，只有一本厚厚的相簿。小朋友問她：「這本相簿為什麼這麼重要？」張奶奶一頁一頁翻給大家看，照片裡有畢業的學生、校園裡的花，也有小朋友寫給她的謝卡。她說：「這些照片讓我記得，我曾經和很多孩子一起度過快樂的日子。」大家才明白，真正的寶貝不一定很貴，卻一定很珍貴。",
+        questions: ["張奶奶的櫃子裡最重要的是什麼？ A. 相簿 B. 項鍊 C. 玩具", "相簿裡有什麼？ A. 學生、花和謝卡 B. 星星和池塘 C. 地瓜餅", "真正的寶貝不一定怎麼樣？ A. 很貴 B. 很小 C. 很乾淨", "照樣寫句子：真正的寶貝不一定很貴，卻一定很珍貴。<span class='longline'></span>"]
+      },
+      {
+        title: "新閱讀三：跳出去以後",
+        lessons: ["井裡的小青蛙"],
+        text: "小青蛙住在井裡時，常對自己說：「我已經看過天空了。」一天，牠跟著蝴蝶跳出井口，才發現天空不是小小的一塊，而是連到很遠很遠的地方。牠看見小路通向花田，也看見小鳥飛過山邊。小青蛙回到井邊，沒有再說自己什麼都知道，只對朋友說：「我們一起出去看看吧！」",
+        questions: ["小青蛙跟著誰跳出井口？ A. 蝴蝶 B. 小鴨子 C. 張奶奶", "小青蛙出去後看見什麼？ A. 花田和小鳥 B. 鉛筆盒 C. 教室", "小青蛙後來邀朋友做什麼？ A. 一起出去看看 B. 一起睡覺 C. 一起藏起來", "照樣寫句子：我們一起出去看看吧！<span class='longline'></span>"]
+      },
+      {
+        title: "新閱讀四：池塘像鏡子",
+        lessons: ["吃星星的小鴨子"],
+        text: "風停了，池塘的水面平平的，像一面大鏡子。小鴨子看見雲在水裡走，也看見月亮在水裡亮。牠低頭碰了一下水面，月亮立刻變成一圈一圈的光。鴨媽媽告訴牠：「這不是月亮破了，是水面動了，倒影也跟著動。」小鴨子想，原來眼睛看到的事，還要用腦袋想一想。",
+        questions: ["水面像什麼？ A. 鏡子 B. 書包 C. 地瓜", "小鴨子碰水面後，月亮變成什麼？ A. 一圈一圈的光 B. 一張卡片 C. 一棵樹", "鴨媽媽說倒影為什麼會動？ A. 水面動了 B. 月亮跑了 C. 星星掉了", "照樣寫句子：眼睛看到的事，還要用腦袋想一想。<span class='longline'></span>"]
+      },
+      {
+        title: "新閱讀五：一起吃更甜",
+        lessons: ["快樂不止一半"],
+        text: "小恩家收了很多地瓜。她挑了一顆最大的地瓜，想自己留著吃。可是媽媽把地瓜切成好幾塊，請鄰居和朋友一起吃。小恩一開始覺得可惜，後來聽見大家說地瓜很甜，還有人分享自己的點心，她才發現，自己吃一整顆地瓜很開心，和大家一起吃卻更開心。",
+        questions: ["小恩一開始想留下哪一顆地瓜？ A. 最大的 B. 最小的 C. 壞掉的", "媽媽怎麼做？ A. 切成好幾塊分給大家 B. 全部藏起來 C. 丟進池塘", "小恩最後發現什麼？ A. 一起吃更開心 B. 地瓜不好吃 C. 朋友不喜歡她", "照樣寫句子：自己吃很開心，和大家一起吃卻更開心。<span class='longline'></span>"]
+      }
+    ];
+
     let current = "correct";
     let currentReading = 0;
+    let generatedMode = false;
     const content = document.querySelector("#content");
     const title = document.querySelector("#title");
     const hint = document.querySelector("#hint");
@@ -527,6 +709,14 @@
 
     function itemLesson(item) {
       return item[2] || item[0];
+    }
+
+    function activeData() {
+      return generatedMode ? generatedData : data;
+    }
+
+    function activeReadings() {
+      return generatedMode ? generatedReadings : readings;
     }
 
     function isIncludedLesson(lesson, selected) {
@@ -544,10 +734,11 @@
     function filteredReadings() {
       const selected = selectedLessons();
       if (!selected.length) return [];
-      return readings.filter(reading => reading.lessons.some(lesson => selected.includes(lesson)));
+      return activeReadings().filter(reading => reading.lessons.some(lesson => selected.includes(lesson)));
     }
 
     function updateTypeCounts() {
+      const source = activeData();
       document.querySelectorAll(".btn").forEach(btn => {
         const span = btn.querySelector("span");
         const type = btn.dataset.type;
@@ -555,7 +746,7 @@
           span.textContent = `${filteredReadings().length} 篇`;
           return;
         }
-        span.textContent = `${filteredItems(data[type]).length} 題`;
+        span.textContent = `${filteredItems(source[type]).length} 題`;
       });
     }
 
@@ -619,7 +810,7 @@
         renderReading();
         return;
       }
-      const group = data[type];
+      const group = activeData()[type];
       const items = filteredItems(group);
       title.textContent = group.title;
       hint.textContent = group.hint;
@@ -644,6 +835,12 @@
     document.querySelector("#clearLessons").addEventListener("click", () => {
       lessonInputs.forEach(input => input.checked = false);
       currentReading = 0;
+      render(current);
+    });
+    document.querySelector("#generateNewSet").addEventListener("click", () => {
+      generatedMode = true;
+      currentReading = 0;
+      document.querySelector("#generateNewSet").textContent = "已換成新題目";
       render(current);
     });
     render(current);
