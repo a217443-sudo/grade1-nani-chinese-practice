@@ -62,6 +62,45 @@
       text-align: left;
     }
     .btn.active { background: #111; color: #fff; }
+    .filter-title {
+      margin: 0 0 2mm;
+      font-size: 13.5pt;
+      font-weight: 700;
+    }
+    .lesson-filter {
+      display: grid;
+      gap: 1.8mm;
+      margin-bottom: 5mm;
+    }
+    .lesson-check {
+      display: flex;
+      align-items: center;
+      gap: 2mm;
+      border: 1px solid #c5cbd3;
+      background: #fff;
+      padding: 2mm;
+      font-size: 10.8pt;
+      line-height: 1.35;
+      cursor: pointer;
+    }
+    .lesson-check input {
+      width: 4mm;
+      height: 4mm;
+      margin: 0;
+    }
+    .mini-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2mm;
+      margin-bottom: 5mm;
+    }
+    .mini-actions button {
+      border: 1px solid #222;
+      background: #fff;
+      padding: 2mm;
+      font-size: 10.5pt;
+      cursor: pointer;
+    }
     .practice-title {
       display: flex;
       justify-content: space-between;
@@ -184,6 +223,19 @@
 
     <section class="layout">
       <aside class="sidebar">
+        <div class="filter-title">選擇課文範圍</div>
+        <div class="lesson-filter" id="lessonFilter">
+          <label class="lesson-check"><input type="checkbox" value="畫畫" checked>第 7 課　畫畫</label>
+          <label class="lesson-check"><input type="checkbox" value="給松鼠的卡片" checked>第 8 課　給松鼠的卡片</label>
+          <label class="lesson-check"><input type="checkbox" value="張奶奶的寶貝" checked>第 9 課　張奶奶的寶貝</label>
+          <label class="lesson-check"><input type="checkbox" value="井裡的小青蛙" checked>第 10 課　井裡的小青蛙</label>
+          <label class="lesson-check"><input type="checkbox" value="吃星星的小鴨子" checked>第 11 課　吃星星的小鴨子</label>
+          <label class="lesson-check"><input type="checkbox" value="快樂不止一半" checked>第 12 課　快樂不止一半</label>
+        </div>
+        <div class="mini-actions">
+          <button id="selectAllLessons" type="button">全選</button>
+          <button id="clearLessons" type="button">清除</button>
+        </div>
         <h2>選擇練習類型</h2>
         <button class="btn active" data-type="correct">圈出正確的字 <span>20 題</span></button>
         <button class="btn" data-type="choice">選出正確答案 <span>20 題</span></button>
@@ -317,20 +369,20 @@
         title: "照樣造句",
         hint: "每題先看指定句型與例句，再請孩子自己造一句完整的句子。",
         items: [
-          ["句型", "句型：因為……所以……<div class='example'>例句：因為下雨了，所以我要撐傘。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：一邊……一邊……<div class='example'>例句：我一邊唱歌，一邊拍手。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：如果……就……<div class='example'>例句：如果明天放晴，我就去公園玩。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：把……送給……<div class='example'>例句：我把卡片送給奶奶。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：……是……的寶貝<div class='example'>例句：照片是張奶奶的寶貝。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：想看看……<div class='example'>例句：我想看看外面的世界。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：原來……<div class='example'>例句：原來水裡的星星是倒影。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：一起……<div class='example'>例句：我們一起分享點心。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：謝謝您……<div class='example'>例句：謝謝您幫我拿書包。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：越來越……<div class='example'>例句：小樹越來越高。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：……真……<div class='example'>例句：這張圖畫真漂亮。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：有的……有的……<div class='example'>例句：花園裡有的花是紅色，有的花是黃色。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：除了……還有……<div class='example'>例句：池塘裡除了小鴨子，還有小魚。</div>請你造句：<span class='longline'></span>"],
-          ["句型", "句型：不但……也……<div class='example'>例句：分享不但讓朋友開心，也讓我很快樂。</div>請你造句：<span class='longline'></span>"]
+          ["句型", "句型：因為……所以……<div class='example'>例句：因為下雨了，所以我要撐傘。</div>請你造句：<span class='longline'></span>", "畫畫"],
+          ["句型", "句型：一邊……一邊……<div class='example'>例句：我一邊唱歌，一邊拍手。</div>請你造句：<span class='longline'></span>", "畫畫"],
+          ["句型", "句型：如果……就……<div class='example'>例句：如果明天放晴，我就去公園玩。</div>請你造句：<span class='longline'></span>", "給松鼠的卡片"],
+          ["句型", "句型：把……送給……<div class='example'>例句：我把卡片送給奶奶。</div>請你造句：<span class='longline'></span>", "給松鼠的卡片"],
+          ["句型", "句型：……是……的寶貝<div class='example'>例句：照片是張奶奶的寶貝。</div>請你造句：<span class='longline'></span>", "張奶奶的寶貝"],
+          ["句型", "句型：想看看……<div class='example'>例句：我想看看外面的世界。</div>請你造句：<span class='longline'></span>", "井裡的小青蛙"],
+          ["句型", "句型：原來……<div class='example'>例句：原來水裡的星星是倒影。</div>請你造句：<span class='longline'></span>", "吃星星的小鴨子"],
+          ["句型", "句型：一起……<div class='example'>例句：我們一起分享點心。</div>請你造句：<span class='longline'></span>", "快樂不止一半"],
+          ["句型", "句型：謝謝您……<div class='example'>例句：謝謝您幫我拿書包。</div>請你造句：<span class='longline'></span>", "張奶奶的寶貝"],
+          ["句型", "句型：越來越……<div class='example'>例句：小樹越來越高。</div>請你造句：<span class='longline'></span>", "給松鼠的卡片"],
+          ["句型", "句型：……真……<div class='example'>例句：這張圖畫真漂亮。</div>請你造句：<span class='longline'></span>", "畫畫"],
+          ["句型", "句型：有的……有的……<div class='example'>例句：花園裡有的花是紅色，有的花是黃色。</div>請你造句：<span class='longline'></span>", "畫畫"],
+          ["句型", "句型：除了……還有……<div class='example'>例句：池塘裡除了小鴨子，還有小魚。</div>請你造句：<span class='longline'></span>", "井裡的小青蛙"],
+          ["句型", "句型：不但……也……<div class='example'>例句：分享不但讓朋友開心，也讓我很快樂。</div>請你造句：<span class='longline'></span>", "快樂不止一半"]
         ],
         className: "sentence-card"
       },
@@ -360,40 +412,40 @@
         title: "標點符號",
         hint: "請讀句子的意思，自己判斷要加句號、問號、逗號或冒號引號。",
         items: [
-          ["", "你要把卡片送給誰<span class='line'></span>"],
-          ["", "我畫了一張漂亮的圖畫<span class='line'></span>"],
-          ["", "因為下雨了所以我要撐傘<span class='longline'></span>"],
-          ["", "小青蛙想看看外面的世界嗎<span class='line'></span>"],
-          ["", "張奶奶的照片是她的寶貝<span class='line'></span>"],
-          ["", "我一邊畫畫一邊唱歌<span class='longline'></span>"],
-          ["", "老師說 請大家安靜看書<span class='longline'></span>"],
-          ["", "池塘裡的星星是真的嗎<span class='line'></span>"],
-          ["", "大家一起分享地瓜<span class='line'></span>"],
-          ["", "如果我做好卡片就送給奶奶<span class='longline'></span>"],
-          ["", "媽媽說 謝謝你幫忙<span class='longline'></span>"],
-          ["", "你看過小松鼠嗎<span class='line'></span>"],
-          ["", "小鴨子在池塘裡游泳<span class='line'></span>"],
-          ["", "除了天空還有大樹和小花<span class='longline'></span>"]
+          ["", "你要把卡片送給誰<span class='line'></span>", "給松鼠的卡片"],
+          ["", "我畫了一張漂亮的圖畫<span class='line'></span>", "畫畫"],
+          ["", "因為下雨了所以我要撐傘<span class='longline'></span>", "畫畫"],
+          ["", "小青蛙想看看外面的世界嗎<span class='line'></span>", "井裡的小青蛙"],
+          ["", "張奶奶的照片是她的寶貝<span class='line'></span>", "張奶奶的寶貝"],
+          ["", "我一邊畫畫一邊唱歌<span class='longline'></span>", "畫畫"],
+          ["", "老師說 請大家安靜看書<span class='longline'></span>", "張奶奶的寶貝"],
+          ["", "池塘裡的星星是真的嗎<span class='line'></span>", "吃星星的小鴨子"],
+          ["", "大家一起分享地瓜<span class='line'></span>", "快樂不止一半"],
+          ["", "如果我做好卡片就送給奶奶<span class='longline'></span>", "給松鼠的卡片"],
+          ["", "媽媽說 謝謝你幫忙<span class='longline'></span>", "張奶奶的寶貝"],
+          ["", "你看過小松鼠嗎<span class='line'></span>", "給松鼠的卡片"],
+          ["", "小鴨子在池塘裡游泳<span class='line'></span>", "吃星星的小鴨子"],
+          ["", "除了天空還有大樹和小花<span class='longline'></span>", "井裡的小青蛙"]
         ]
       },
       classifier: {
         title: "量詞練習",
         hint: "請從這些量詞中選一個填入：（張、幅、隻、顆、本、棵、朵、個、座、條、片、道、雙、群）。",
         items: [
-          ["", "一（　）卡片<span class='line'></span>"],
-          ["", "一（　）圖畫<span class='line'></span>"],
-          ["", "一（　）松鼠<span class='line'></span>"],
-          ["", "一（　）照片<span class='line'></span>"],
-          ["", "一（　）青蛙<span class='line'></span>"],
-          ["", "一（　）小鴨子<span class='line'></span>"],
-          ["", "一（　）星星<span class='line'></span>"],
-          ["", "一（　）池塘<span class='line'></span>"],
-          ["", "一（　）地瓜<span class='line'></span>"],
-          ["", "一（　）書<span class='line'></span>"],
-          ["", "一（　）樹<span class='line'></span>"],
-          ["", "一（　）花<span class='line'></span>"],
-          ["", "一（　）果子<span class='line'></span>"],
-          ["", "一（　）相簿<span class='line'></span>"]
+          ["", "一（　）卡片<span class='line'></span>", "給松鼠的卡片"],
+          ["", "一（　）圖畫<span class='line'></span>", "畫畫"],
+          ["", "一（　）松鼠<span class='line'></span>", "給松鼠的卡片"],
+          ["", "一（　）照片<span class='line'></span>", "張奶奶的寶貝"],
+          ["", "一（　）青蛙<span class='line'></span>", "井裡的小青蛙"],
+          ["", "一（　）小鴨子<span class='line'></span>", "吃星星的小鴨子"],
+          ["", "一（　）星星<span class='line'></span>", "吃星星的小鴨子"],
+          ["", "一（　）池塘<span class='line'></span>", "吃星星的小鴨子"],
+          ["", "一（　）地瓜<span class='line'></span>", "快樂不止一半"],
+          ["", "一（　）書<span class='line'></span>", "井裡的小青蛙"],
+          ["", "一（　）樹<span class='line'></span>", "給松鼠的卡片"],
+          ["", "一（　）花<span class='line'></span>", "畫畫"],
+          ["", "一（　）果子<span class='line'></span>", "給松鼠的卡片"],
+          ["", "一（　）相簿<span class='line'></span>", "張奶奶的寶貝"]
         ]
       }
     };
@@ -401,51 +453,61 @@
     const readings = [
       {
         title: "閱讀一：送不出去的卡片",
+        lessons: ["畫畫", "給松鼠的卡片"],
         text: "小芸畫了一張卡片，想送給公園裡的小松鼠。卡片上有一棵大樹，樹上有紅紅的果子，旁邊還寫著：「祝你平安長大。」可是，小芸走到公園時，小松鼠躲進樹洞裡，怎麼也不出來。她想了想，沒有大聲叫牠，只把卡片放在樹下，再和媽媽安靜地離開。回家的路上，媽媽說：「有時候，喜歡一個朋友，不一定要打擾牠。」小芸點點頭，覺得這張沒有親手送出的卡片，也把祝福送到了。",
         questions: ["小芸做卡片的原因是什麼？ A. 想送給小松鼠 B. 想送給老師 C. 想賣掉卡片", "小芸沒有大聲叫小松鼠，表示她怎麼樣？ A. 尊重小松鼠 B. 忘了帶卡片 C. 不喜歡松鼠", "媽媽說的話，最接近哪一個意思？ A. 關心別人也要替別人著想 B. 朋友一定要天天見面 C. 卡片不能放在樹下", "照樣寫句子：有時候，喜歡一個朋友，不一定要打擾牠。<span class='longline'></span>", "這篇文章主要在說什麼？ A. 小芸用安靜的方式送出祝福 B. 小芸去買果子 C. 小芸和媽媽迷路"]
       },
       {
         title: "閱讀二：張奶奶的相簿",
+        lessons: ["張奶奶的寶貝"],
         text: "下課時，小朋友常看見張奶奶在花圃旁邊拔草。有人以為那只是小事，可是老師說，花圃能保持乾淨，是因為張奶奶每天都來照顧。一天，小倫看見張奶奶滿頭大汗，便拿水給她喝。張奶奶笑著拿出一本小相簿，裡面有好多小朋友的照片。她說：「這些不是貴重的東西，卻是我的寶貝。因為每一張照片，都讓我想起你們長大的樣子。」小倫聽了，才知道寶貝不一定是金銀財寶，也可以是一段很珍貴的回憶。",
         questions: ["張奶奶每天照顧什麼地方？ A. 花圃 B. 游泳池 C. 停車場", "小倫拿水給張奶奶，是因為他看見張奶奶怎麼樣？ A. 滿頭大汗 B. 正在睡覺 C. 忘了帶書", "張奶奶說相簿是寶貝，原因是什麼？ A. 裡面有珍貴回憶 B. 相簿很貴 C. 相簿很大", "「寶貝不一定是金銀財寶」這句話的意思是什麼？ A. 珍貴的回憶也可以是寶貝 B. 寶貝只能用錢買 C. 相簿不能保存照片", "照樣寫句子：寶貝不一定是金銀財寶，也可以是一段很珍貴的回憶。<span class='longline'></span>"]
       },
       {
         title: "閱讀三：井口外的聲音",
+        lessons: ["井裡的小青蛙"],
         text: "小青蛙住在井裡時，總覺得自己知道很多事。牠看見井口上方的天空，就說：「天空只有這麼大。」牠聽見路過的小鳥說外面有高山、河流和花田，還笑小鳥說得太誇張。後來，一場大雨讓井水漲高，小青蛙順著石頭跳到井外。牠看見天空沒有邊，白雲慢慢飄過，遠處還有一大片田。小青蛙紅著臉說：「原來不是天空太小，是我看得太少。」",
         questions: ["小青蛙一開始為什麼以為天空很小？ A. 牠只從井口看天空 B. 天空真的很小 C. 小鳥騙牠", "小鳥說外面有什麼？ A. 高山、河流和花田 B. 鉛筆和書包 C. 桌子和椅子", "小青蛙跳到井外後，發現自己以前怎麼樣？ A. 看得太少 B. 跑得太慢 C. 唱得太小聲", "這篇文章的道理最接近哪一個？ A. 要多看多學，不要只相信自己看到的一小部分 B. 下雨一定不好 C. 小鳥不會說話", "照樣寫句子：不是天空太小，是我看得太少。<span class='longline'></span>"]
       },
       {
         title: "閱讀四：水裡的星星",
+        lessons: ["吃星星的小鴨子"],
         text: "夜晚，小鴨子跟著媽媽經過池塘。牠看見水裡有一閃一閃的亮點，就開心地說：「媽媽，星星掉到水裡了！」說完，牠伸長脖子想啄一顆星星。水面被牠碰了一下，亮點立刻變成一圈一圈的波紋。小鴨子嚇了一跳，以為自己把星星弄破了。鴨媽媽說：「別擔心，那是天空映在水裡的影子。水面一動，影子也會跟著動。」小鴨子抬頭看看天空，又低頭看看水面，終於明白了。",
         questions: ["小鴨子以為水裡的亮點是什麼？ A. 掉下來的星星 B. 小魚 C. 石頭", "水面被碰到後，亮點變成什麼？ A. 一圈一圈的波紋 B. 一朵花 C. 一張卡片", "鴨媽媽怎麼解釋水裡的星星？ A. 是天空映在水裡的影子 B. 是真的星星 C. 是糖果", "小鴨子最後怎麼做，才明白媽媽的話？ A. 抬頭看天空，又低頭看水面 B. 閉上眼睛 C. 跑回家", "照樣寫句子：水面一動，影子也會跟著動。<span class='longline'></span>"]
       },
       {
         title: "閱讀五：一半以後",
+        lessons: ["快樂不止一半"],
         text: "阿哲家的地瓜收成很好。爸爸說：「我們留一半自己吃，另一半送給鄰居。」阿哲一開始有點捨不得，心想：送出去以後，不就少了嗎？可是鄰居收到地瓜後，送來一盤地瓜餅，還和大家分享種菜的方法。晚上，阿哲吃著香香的地瓜餅，忽然明白爸爸說的話。原來，有些東西分出去，看起來少了一半，快樂卻不止一半。",
         questions: ["爸爸打算怎麼分地瓜？ A. 一半自己吃，一半送鄰居 B. 全部丟掉 C. 全部拿去賣", "阿哲一開始為什麼捨不得？ A. 他以為送出去就變少 B. 他不喜歡地瓜 C. 他想睡覺", "鄰居收到地瓜後做了什麼？ A. 送來地瓜餅並分享方法 B. 把門關起來 C. 什麼都沒說", "「快樂卻不止一半」的意思是什麼？ A. 分享會帶來更多快樂 B. 快樂會變少 C. 地瓜不能分享", "照樣寫句子：看起來少了一半，快樂卻不止一半。<span class='longline'></span>"]
       },
       {
         title: "閱讀六：畫裡的謝謝",
+        lessons: ["畫畫", "張奶奶的寶貝"],
         text: "班上要做感謝卡，小潔想了很久，不知道要寫給誰。她看見導護志工每天站在校門口，不管下雨或出太陽，都提醒小朋友注意安全。於是，小潔畫了一張校門口的圖，圖裡有撐傘的志工，也有排隊進校門的小朋友。她在旁邊寫：「謝謝您守護我們。」志工收到卡片時，眼睛笑得彎彎的。小潔才知道，畫畫不只是把東西畫出來，也能把心裡的感謝說出來。",
         questions: ["小潔最後把感謝卡送給誰？ A. 導護志工 B. 小松鼠 C. 小鴨子", "小潔的圖畫裡有什麼？ A. 校門口、志工和小朋友 B. 池塘和星星 C. 高山和井", "小潔在卡片上寫了什麼？ A. 謝謝您守護我們 B. 我要吃地瓜 C. 我不想上學", "這篇文章說畫畫還可以做什麼？ A. 表達心裡的感謝 B. 讓人迷路 C. 把水變甜", "照樣寫句子：畫畫不只是把東西畫出來，也能把心裡的感謝說出來。<span class='longline'></span>"]
       },
       {
         title: "閱讀七：不一樣的寶貝",
+        lessons: ["畫畫", "張奶奶的寶貝"],
         text: "小宇以為寶貝一定是新的玩具。可是張奶奶拿出一條舊手帕，說那是她的寶貝。小宇覺得奇怪，問：「手帕舊了，為什麼還是寶貝？」張奶奶說，這條手帕是她小時候的老師送的。每次看見手帕，她就想起老師鼓勵她讀書的樣子。小宇聽完，回家拿起自己的小畫本。他想，也許這本畫本以後也會變成自己的寶貝，因為裡面有他慢慢長大的故事。",
         questions: ["小宇一開始以為寶貝一定是什麼？ A. 新玩具 B. 舊手帕 C. 小畫本", "張奶奶的寶貝是什麼？ A. 舊手帕 B. 星星 C. 地瓜", "張奶奶珍惜手帕的原因是什麼？ A. 會想起老師的鼓勵 B. 手帕很大 C. 手帕會唱歌", "小宇為什麼覺得畫本也可能成為寶貝？ A. 裡面有他長大的故事 B. 畫本很重 C. 畫本是糖果", "照樣寫句子：每次看見手帕，她就想起老師鼓勵她讀書的樣子。<span class='longline'></span>"]
       },
       {
         title: "閱讀八：誰看錯了",
+        lessons: ["吃星星的小鴨子"],
         text: "小鴨子說：「我看見池塘裡有一群星星。」小魚笑牠看錯了，說：「星星只在天上。」小鴨子不服氣，請鴨媽媽來看。鴨媽媽沒有立刻說誰對誰錯，只請牠們等風停下來。過了一會兒，水面變平，天上的星星清楚地映在池塘裡。小魚驚訝地說：「原來你沒有完全看錯，只是水裡的星星不是真的星星。」小鴨子也說：「我也學到了，看見的事情還要想一想。」",
         questions: ["小魚一開始為什麼笑小鴨子？ A. 牠認為星星只在天上 B. 牠想吃星星 C. 牠不會游泳", "鴨媽媽請牠們等什麼？ A. 風停下來 B. 天亮 C. 老師來", "水面變平後，牠們看見什麼？ A. 天上的星星映在水裡 B. 一張卡片 C. 一棵地瓜", "小鴨子學到了什麼？ A. 看見的事情還要想一想 B. 不能看天空 C. 池塘沒有水", "照樣寫句子：原來你沒有完全看錯，只是水裡的星星不是真的星星。<span class='longline'></span>"]
       },
       {
         title: "閱讀九：井邊的畫",
+        lessons: ["畫畫", "井裡的小青蛙"],
         text: "美美在故事課聽到井裡的小青蛙，就畫了一張圖。圖的一邊是井裡小小的天空，另一邊是井外大大的世界。她還畫了花田、小路、池塘和遠山。老師看了問：「你為什麼要把圖分成兩邊？」美美說：「因為我想讓小青蛙知道，從井裡看出去，只能看見一點點；走到外面，才知道世界很大。」老師點點頭，請美美把這張圖拿給同學看，大家也一起說出自己想去看看的地方。",
         questions: ["美美的圖一邊畫井裡，另一邊畫什麼？ A. 井外大大的世界 B. 教室的桌子 C. 一張相簿", "老師問美美什麼問題？ A. 為什麼把圖分成兩邊 B. 為什麼不吃飯 C. 為什麼跑步", "美美畫這張圖想表達什麼？ A. 走到外面才知道世界很大 B. 井裡比較熱鬧 C. 池塘不能畫", "同學看完圖後做了什麼？ A. 說出自己想去看看的地方 B. 把圖丟掉 C. 全部睡覺", "照樣寫句子：從井裡看出去，只能看見一點點；走到外面，才知道世界很大。<span class='longline'></span>"]
       },
       {
         title: "閱讀十：多出來的快樂",
+        lessons: ["畫畫", "張奶奶的寶貝", "吃星星的小鴨子", "快樂不止一半"],
         text: "班上要布置教室，每個人都帶一樣東西來。小真帶了一盒彩色紙，阿凱帶了幾張照片，小莉帶來自己畫的星空。大家原本各做各的，速度很慢。後來，老師說：「試著把材料放在一起，看看會變成什麼。」小真把彩色紙剪成花，阿凱把照片貼在花旁邊，小莉把星空放在最上面。完成後，布告欄像一座有回憶、有花、也有星星的小花園。小真說：「我只帶了一盒彩色紙，卻得到一整面漂亮的牆。」大家都笑了，因為合作和分享讓作品變得更好。",
         questions: ["班上要做什麼事？ A. 布置教室 B. 去游泳 C. 買玩具", "小莉帶來什麼？ A. 自己畫的星空 B. 一鍋湯 C. 一把傘", "老師建議大家怎麼做？ A. 把材料放在一起 B. 各自藏起來 C. 不要做", "小真說自己得到一整面漂亮的牆，意思是什麼？ A. 分享合作讓成果變更多 B. 牆是她買的 C. 彩色紙不見了", "照樣寫句子：我只帶了一盒彩色紙，卻得到一整面漂亮的牆。<span class='longline'></span>"]
       }
@@ -457,10 +519,53 @@
     const title = document.querySelector("#title");
     const hint = document.querySelector("#hint");
     const count = document.querySelector("#count");
+    const lessonInputs = [...document.querySelectorAll("#lessonFilter input")];
 
-    function renderCards(group) {
+    function selectedLessons() {
+      return lessonInputs.filter(input => input.checked).map(input => input.value);
+    }
+
+    function itemLesson(item) {
+      return item[2] || item[0];
+    }
+
+    function isIncludedLesson(lesson, selected) {
+      if (!selected.length) return false;
+      if (!lesson) return true;
+      if (lesson === "綜合" || lesson === "句型") return selected.length >= 2;
+      return selected.includes(lesson);
+    }
+
+    function filteredItems(group) {
+      const selected = selectedLessons();
+      return group.items.filter(item => isIncludedLesson(itemLesson(item), selected));
+    }
+
+    function filteredReadings() {
+      const selected = selectedLessons();
+      if (!selected.length) return [];
+      return readings.filter(reading => reading.lessons.some(lesson => selected.includes(lesson)));
+    }
+
+    function updateTypeCounts() {
+      document.querySelectorAll(".btn").forEach(btn => {
+        const span = btn.querySelector("span");
+        const type = btn.dataset.type;
+        if (type === "reading") {
+          span.textContent = `${filteredReadings().length} 篇`;
+          return;
+        }
+        span.textContent = `${filteredItems(data[type]).length} 題`;
+      });
+    }
+
+    function renderCards(group, items) {
+      if (!items.length) {
+        content.innerHTML = `<div class="panel">目前選取的課文範圍沒有這個題型的題目。請多選幾課，或切換其他練習類型。</div>`;
+        return;
+      }
       content.innerHTML = `<div class="questions">${
-        group.items.map((item, index) => `
+        items.map((item, index) => `
           <article class="card ${group.className || ""}">
             ${item[0] ? `<span class="lesson">${item[0]}</span>` : ""}
             <div class="q">${index + 1}. ${item[1]}</div>
@@ -470,11 +575,17 @@
     }
 
     function renderReading() {
-      const item = readings[currentReading];
+      const list = filteredReadings();
       title.textContent = "閱讀理解";
       hint.textContent = "先選一篇文章，讀完整篇內文，再回答右側問題。";
-      count.textContent = "10 篇閱讀";
-      const selector = readings.map((r, i) => `<button class="reader-btn ${i === currentReading ? "active" : ""}" data-reading="${i}">${i + 1}. ${r.title.replace("閱讀" + ["一","二","三","四","五","六","七","八","九","十"][i] + "：", "")}</button>`).join("");
+      count.textContent = `${list.length} 篇閱讀`;
+      if (!list.length) {
+        content.innerHTML = `<div class="panel">目前選取的課文範圍沒有閱讀文章。請至少選擇一課，或多選幾課。</div>`;
+        return;
+      }
+      if (currentReading >= list.length) currentReading = 0;
+      const item = list[currentReading];
+      const selector = list.map((r, i) => `<button class="reader-btn ${i === currentReading ? "active" : ""}" data-reading="${i}">${i + 1}. ${r.title.replace(/^閱讀[一二三四五六七八九十]：/, "")}</button>`).join("");
       content.innerHTML = `
         <div class="reader-list">${selector}</div>
         <div class="reading-wrap">
@@ -502,20 +613,38 @@
 
     function render(type) {
       current = type;
+      updateTypeCounts();
       document.querySelectorAll(".btn").forEach(btn => btn.classList.toggle("active", btn.dataset.type === type));
       if (type === "reading") {
         renderReading();
         return;
       }
       const group = data[type];
+      const items = filteredItems(group);
       title.textContent = group.title;
       hint.textContent = group.hint;
-      count.textContent = `${group.items.length} 題`;
-      renderCards(group);
+      count.textContent = `${items.length} 題`;
+      renderCards(group, items);
     }
 
     document.querySelectorAll(".btn").forEach(btn => {
       btn.addEventListener("click", () => render(btn.dataset.type));
+    });
+    lessonInputs.forEach(input => {
+      input.addEventListener("change", () => {
+        currentReading = 0;
+        render(current);
+      });
+    });
+    document.querySelector("#selectAllLessons").addEventListener("click", () => {
+      lessonInputs.forEach(input => input.checked = true);
+      currentReading = 0;
+      render(current);
+    });
+    document.querySelector("#clearLessons").addEventListener("click", () => {
+      lessonInputs.forEach(input => input.checked = false);
+      currentReading = 0;
+      render(current);
     });
     render(current);
   </script>
