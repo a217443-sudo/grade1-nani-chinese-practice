@@ -169,6 +169,159 @@
       font-size: 11.5pt;
       line-height: 1.5;
     }
+    .scene {
+      position: relative;
+      min-height: 34mm;
+      border: 1.4px solid #111;
+      background: linear-gradient(#dff2ff 0 62%, #dff4cf 62% 100%);
+      overflow: hidden;
+      margin-bottom: 2mm;
+    }
+    .scene .sun {
+      position: absolute;
+      width: 11mm;
+      height: 11mm;
+      border-radius: 50%;
+      background: #ffd95a;
+      top: 4mm;
+      right: 6mm;
+      border: 1px solid #111;
+    }
+    .scene .tree {
+      position: absolute;
+      width: 10mm;
+      height: 20mm;
+      left: 8mm;
+      bottom: 5mm;
+      background: #8b5a2b;
+    }
+    .scene .tree::before {
+      content: "";
+      position: absolute;
+      width: 24mm;
+      height: 18mm;
+      border-radius: 50%;
+      background: #4f9d55;
+      left: -7mm;
+      top: -12mm;
+      border: 1px solid #111;
+    }
+    .scene .card-img {
+      position: absolute;
+      width: 20mm;
+      height: 14mm;
+      background: #fff;
+      border: 1.4px solid #111;
+      left: 34mm;
+      bottom: 10mm;
+    }
+    .scene .card-img::after {
+      content: "❤";
+      position: absolute;
+      color: #d93025;
+      left: 7mm;
+      top: 2mm;
+      font-size: 14pt;
+    }
+    .scene .person {
+      position: absolute;
+      width: 8mm;
+      height: 14mm;
+      background: #2f80ed;
+      border: 1px solid #111;
+      border-radius: 3mm 3mm 1mm 1mm;
+      left: 25mm;
+      bottom: 5mm;
+    }
+    .scene .person::before {
+      content: "";
+      position: absolute;
+      width: 7mm;
+      height: 7mm;
+      border-radius: 50%;
+      background: #ffd6a5;
+      border: 1px solid #111;
+      top: -7mm;
+      left: .3mm;
+    }
+    .scene .pond {
+      position: absolute;
+      width: 42mm;
+      height: 16mm;
+      border-radius: 50%;
+      background: #8fd3ff;
+      border: 1.4px solid #111;
+      left: 16mm;
+      bottom: 5mm;
+    }
+    .scene .star {
+      position: absolute;
+      color: #f5b700;
+      font-size: 17pt;
+      top: 8mm;
+      left: 28mm;
+    }
+    .scene .duck {
+      position: absolute;
+      width: 15mm;
+      height: 9mm;
+      background: #ffd95a;
+      border: 1px solid #111;
+      border-radius: 50% 45% 45% 50%;
+      left: 29mm;
+      bottom: 12mm;
+    }
+    .scene .duck::before {
+      content: "";
+      position: absolute;
+      width: 8mm;
+      height: 8mm;
+      border-radius: 50%;
+      background: #ffd95a;
+      border: 1px solid #111;
+      right: -4mm;
+      top: -4mm;
+    }
+    .scene .well {
+      position: absolute;
+      width: 24mm;
+      height: 15mm;
+      border: 2px solid #555;
+      border-radius: 50% / 35%;
+      background: #cfd4da;
+      left: 26mm;
+      bottom: 6mm;
+    }
+    .scene .frog {
+      position: absolute;
+      width: 13mm;
+      height: 9mm;
+      border-radius: 50%;
+      background: #69b34c;
+      border: 1px solid #111;
+      left: 31mm;
+      bottom: 17mm;
+    }
+    .scene .book {
+      position: absolute;
+      width: 22mm;
+      height: 15mm;
+      background: #fff;
+      border: 1.4px solid #111;
+      left: 38mm;
+      bottom: 9mm;
+      transform: rotate(-4deg);
+    }
+    .scene .food {
+      position: absolute;
+      width: 13mm;
+      height: 9mm;
+      border-radius: 50%;
+      background: #b5651d;
+      border: 1px solid #111;
+      left: 42mm;
+      bottom: 8mm;
+    }
     .reader-list {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -251,6 +404,7 @@
         <button class="btn active" data-type="correct">圈出正確的字 <span>20 題</span></button>
         <button class="btn" data-type="choice">選出正確答案 <span>20 題</span></button>
         <button class="btn" data-type="fill">填詞選空 <span>18 題</span></button>
+        <button class="btn" data-type="picture">看圖情境題 <span>12 題</span></button>
         <button class="btn" data-type="reorder">重組句子 <span>16 題</span></button>
         <button class="btn" data-type="sentence">照樣造句 <span>14 題</span></button>
         <button class="btn" data-type="wrongword">改錯字 <span>16 題</span></button>
@@ -352,6 +506,24 @@
           ["快樂不止一半", "詞語：分享。我把點心和妹妹<span class='line'></span>。"],
           ["快樂不止一半", "詞語：收成。農夫今年有很好的<span class='line'></span>。"],
           ["快樂不止一半", "詞語：加油。同學比賽時，我大聲說：「<span class='line'></span>！」"]
+        ]
+      },
+      picture: {
+        title: "看圖情境題",
+        hint: "先看圖片，再依照圖中的情境回答問題。",
+        items: [
+          ["畫畫", "<div class='scene'><span class='sun'></span><span class='person'></span><span class='card-img'></span></div>圖中的孩子最可能在做什麼？ A. 畫卡片 B. 睡覺 C. 游泳"],
+          ["畫畫", "<div class='scene'><span class='sun'></span><span class='person'></span><span class='book'></span></div>請看圖寫一句完整的話：<span class='longline'></span>"],
+          ["給松鼠的卡片", "<div class='scene'><span class='tree'></span><span class='card-img'></span></div>卡片放在樹下，最可能是要送給誰？ A. 松鼠 B. 小鴨子 C. 青蛙"],
+          ["給松鼠的卡片", "<div class='scene'><span class='tree'></span><span class='card-img'></span><span class='sun'></span></div>請用「把……放在……」寫一句話：<span class='longline'></span>"],
+          ["張奶奶的寶貝", "<div class='scene'><span class='person'></span><span class='book'></span></div>圖中的相簿可能是張奶奶的什麼？ A. 寶貝 B. 雨傘 C. 池塘"],
+          ["張奶奶的寶貝", "<div class='scene'><span class='person'></span><span class='card-img'></span></div>如果要謝謝長輩，哪一句最合適？ A. 謝謝您 B. 走開 C. 不要"],
+          ["井裡的小青蛙", "<div class='scene'><span class='well'></span><span class='frog'></span><span class='sun'></span></div>小青蛙在井裡看到的天空可能怎麼樣？ A. 小小一片 B. 全部海洋 C. 很多地瓜"],
+          ["井裡的小青蛙", "<div class='scene'><span class='well'></span><span class='frog'></span><span class='tree'></span></div>看圖說一說：小青蛙跳到井外後會看到什麼？<span class='longline'></span>"],
+          ["吃星星的小鴨子", "<div class='scene'><span class='pond'></span><span class='duck'></span><span class='star'>★</span></div>小鴨子以為水裡的是什麼？ A. 星星 B. 卡片 C. 相簿"],
+          ["吃星星的小鴨子", "<div class='scene'><span class='pond'></span><span class='duck'></span><span class='star'>★</span></div>水裡的星星其實可能是什麼？ A. 倒影 B. 地瓜 C. 樹洞"],
+          ["快樂不止一半", "<div class='scene'><span class='person'></span><span class='food'></span></div>圖中的孩子把食物分給別人，這叫做什麼？ A. 分享 B. 藏起來 C. 生氣"],
+          ["快樂不止一半", "<div class='scene'><span class='person'></span><span class='food'></span><span class='card-img'></span></div>請用「一起……」寫一句和圖片有關的話：<span class='longline'></span>"]
         ]
       },
       reorder: {
@@ -583,6 +755,18 @@
           ["吃星星的小鴨子", "詞語：波紋。水面出現一圈一圈的<span class='line'></span>。"],
           ["快樂不止一半", "詞語：地瓜。大家一起吃甜甜的<span class='line'></span>。"],
           ["快樂不止一半", "詞語：鼓勵。同學的加油是一種<span class='line'></span>。"]
+        ]
+      },
+      picture: {
+        title: "看圖情境題",
+        hint: "第二份題目：看新的圖片情境，回答問題或寫句子。",
+        items: [
+          ["畫畫", "<div class='scene'><span class='person'></span><span class='card-img'></span><span class='sun'></span></div>看圖判斷：孩子最可能想表達什麼？ A. 感謝 B. 生氣 C. 睡覺"],
+          ["給松鼠的卡片", "<div class='scene'><span class='tree'></span><span class='card-img'></span></div>請用「卡片」寫一句和圖片有關的話：<span class='longline'></span>"],
+          ["張奶奶的寶貝", "<div class='scene'><span class='person'></span><span class='book'></span><span class='card-img'></span></div>看圖判斷：相簿和卡片可能讓人想到什麼？ A. 回憶和感謝 B. 游泳 C. 吃星星"],
+          ["井裡的小青蛙", "<div class='scene'><span class='well'></span><span class='frog'></span></div>圖中的小青蛙如果只待在井裡，會少看到什麼？ A. 外面的世界 B. 鉛筆 C. 書包"],
+          ["吃星星的小鴨子", "<div class='scene'><span class='pond'></span><span class='duck'></span><span class='star'>★</span></div>請用「原來……」寫一句和圖片有關的話：<span class='longline'></span>"],
+          ["快樂不止一半", "<div class='scene'><span class='person'></span><span class='food'></span></div>如果孩子把地瓜分給朋友，心情可能怎麼樣？ A. 更快樂 B. 更孤單 C. 更害怕"]
         ]
       },
       reorder: {
